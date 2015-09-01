@@ -21,9 +21,9 @@ node proxy.js &
 curl localhost:3000/blossom/hello
 ```
 
-#### Routes visible in [lib/routes.js](lib/routes.js)
+#### Routes visible in config/routetable ( not show here )
 ```javascript
-var routesLocal = {
+module.exports = {
     "defaults": {
 	"target": "blossom"
     },
