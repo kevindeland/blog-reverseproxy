@@ -1,0 +1,23 @@
+{
+    "/":{
+	"url": "http://localhost:3060",
+	"prefix":"",
+	"host":"localhost"
+    },
+    "blossom":{
+	"url": "http://localhost:3060",
+	"host": "localhost",
+	"prefix": "blossom"
+    },
+    "bubbles": {
+	"url": "http://localhost:3070",
+	"host": "localhost",
+	"prefix": "bubbles"
+    },
+    "buttercup": {
+	"url": "http://localhost:3080",
+	"host": "localhost",
+	"prefix": "buttercup"
+    }
+}
+

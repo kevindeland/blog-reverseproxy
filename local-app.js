@@ -17,9 +17,17 @@ var cookieware = function(name) {
     };
 };
 
+var USE_PROXY = process.env.USE_PROXY;
+console.log(USE_PROXY);
+var PREFIX_COOKIE = 'x-proxy-prefix';
+
 // app 1
 var blossom  = express();
 blossom.use(cookieware('Blossom'));
+blossom.get('/', function(req, res) {
+    res.send('blossom root path');
+});
+
 blossom.get('/hello', function(req, res) {
     res.send('hi from Blossom\n');
 });
@@ -40,6 +48,16 @@ console.log('listening on port ' + PORT);
 // app 2
 var bubbles = express();
 bubbles.use(cookieware('Bubbles'));
+bubbles.get('/', function(req, res) {
+
+    if(USE_PROXY) {
+        console.log('rerouting via x-proxy-prefix');
+        var prefix = req.headers['x-proxy-prefix']
+	res.redirect(prefix + '/hello');
+    } else {
+        res.redirect('/hello');
+    }
+});
 bubbles.get('/hello', function(req, res) {
     res.send('hi from Bubbles\n');
 });
@@ -48,9 +66,18 @@ console.log('listening on port', 3070);
 
 // app 3
 var buttercup = express();
-bubbles.use(cookieware('Buttercup'));
+//buttercup.use(cookieware('Buttercup'));
+buttercup.get('/', function(req, res) {
+    var redirect_path = USE_PROXY && req.headers[PREFIX_COOKIE] ? req.headers[PREFIX_COOKIE] : '';
+    res.redirect(redirect_path + '/hello');
+});
 buttercup.get('/hello', function(req, res) {
     res.send('hi from Buttercup\n');
 });
+
+buttercup.get('/redirect', function(req, res) {
+//    res.redirect('hello');
+});
+
 buttercup.listen(3080);
 console.log('listening on port', 3080);

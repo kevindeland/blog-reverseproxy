@@ -1,4 +1,4 @@
-# blog-reverseproxy
+# reverseproxy
 
 ### Running locally
 #### start local app
@@ -19,24 +19,10 @@ node proxy.js &
 #### Now curl the proxy
 ```bash
 curl localhost:3000/blossom/hello
+curl localhost:3000/hello
 ```
 
-#### Routes visible in config/routetable ( not show here )
+#### Routes visible in [routes.json](./routes.json)
 ```javascript
-module.exports = {
-    "defaults": {
-	"target": "blossom"
-    },
-    "services": {
-	"blossom": {
-	    url: "http://localhost:3060",
-	},
-	"bubbles": {
-	    url: "http://localhost:3070",
-	},
-	"buttercup": {
-	    url: "http://localhost:3080"
-	}
-    }
-}
 ```
+
